@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: wolfram-notebook-java
+  
+  datasource:
+    url: jdbc:sqlite:./notebook.db
+    driver-class-name: org.sqlite.JDBC
+  
+  flyway:
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+logging:
+  level:
+    com.example.notebook: INFO
+    com.wolfram.jlink: WARN
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/app.log
