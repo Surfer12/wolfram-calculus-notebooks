@@ -1,0 +1,76 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Here’s a practical, “fractal” outline for using `magic shell` and the broader `magic` toolchain in your project context:
+
+---
+
+## 1. **Framing: What is `magic` and `magic shell`?**
+- **`magic`** is a high-level package and environment manager, especially for Mojo/MAX/Modular workflows, but also useful for general Python and data science projects.
+- **`magic shell`** (or `magic s`) drops you into a shell where all your project’s dependencies (as defined in `pixi.toml`/`magic.lock`) are available—like a virtual environment, but more powerful and reproducible.
+
+---
+
+## 2. **Key Commands & When to Use Them**
+
+| Command                | When/Why to Use                                                                                  |
+|------------------------|-------------------------------------------------------------------------------------------------|
+| `magic init`           | Start a new project (creates config files).                                                     |
+| `magic add <pkg>`      | Add a dependency (e.g., `magic add numpy`).                                                     |
+| `magic install`        | Install all dependencies as per lock file (use after cloning or editing dependencies).          |
+| `magic update`         | Update dependencies to match the lock file (use after `magic add` or `magic remove`).           |
+| `magic upgrade`        | Upgrade all packages to latest allowed by manifest.                                             |
+| `magic shell`          | Enter a shell with all project dependencies active.                                             |
+| `magic run <task>`     | Run a named task (defined in your project config).                                              |
+| `magic exec <cmd>`     | Run a one-off command in the project environment (without entering a shell).                    |
+| `magic list`           | List all installed packages.                                                                    |
+| `magic tree`           | Show dependency tree.                                                                           |
+| `magic build`          | Build the project (if you have a build script/task defined).                                    |
+| `magic clean`          | Clean up environments, caches, or build artifacts.                                              |
+| `magic info`           | Show info about your environment, system, and project.                                          |
+
+---
+
+## 3. **Typical Workflow for a Project Like Yours**
+
+1. **Clone or enter your project directory.**
+2. *(If not already initialized)*  
+   `magic init`
+3. **Install dependencies:**  
+   `magic install`
+4. **Enter the project environment:**  
+   `magic shell`  
+   *(You’ll see your prompt change—now you have all dependencies available)*
+5. **Run your build/test commands:**  
+   - For Maven: `mvn clean install`
+   - For Python: `python script.py` or similar
+6. **Add or remove dependencies as needed:**  
+   - `magic add <package>`
+   - `magic remove <package>`
+   - Then: `magic update`
+7. **Exit the environment:**  
+   - Just type `exit` or `Ctrl+D` to leave the `magic shell`.
+
+---
+
+## 4. **Advanced/Optional Moves**
+
+- **Define tasks** in your project config (e.g., test, lint, build) and run with `magic run <task>`.
+- **Use `magic exec <cmd>`** for one-off commands without a full shell.
+- **Inspect your environment** with `magic info`, `magic list`, or `magic tree`.
+- **Clean up** with `magic clean` if you run into environment issues.
+
+---
+
+## 5. **Heuristics & Takeaways**
+
+- **Always use `magic shell`** for reproducible, isolated work—no more “works on my machine” problems.
+- **Treat `magic add`/`remove` as your single source of dependency truth**—don’t manually edit lock files.
+- **If something breaks, try `magic clean` and `magic install`** to reset your environment.
+- **Use `magic run` for repeatable tasks**—define them once, run anywhere.
+
+---
+
+### Want a visual workflow, example config, or deeper dive into any command? Just ask!
