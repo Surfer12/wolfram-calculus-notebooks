@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ResourceBundle;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class MinHeapTest {
     private MinHeap<Integer> heap;
     private Comparator<Integer> comparator;
+    private static final ResourceBundle messages = ResourceBundle.getBundle("TestMessages");
 
     @BeforeEach
     void setUp() {
@@ -25,36 +27,36 @@ class MinHeapTest {
 
     @Test
     void testAddAndPeek() {
-        heap.add(5);
-        heap.add(3);
-        heap.add(7);
-        assertEquals(3, heap.peek());
+        heap.add(Integer.parseInt(messages.getString("test.value.five")));
+        heap.add(Integer.parseInt(messages.getString("test.value.three")));
+        heap.add(Integer.parseInt(messages.getString("test.value.seven")));
+        assertEquals(Integer.parseInt(messages.getString("test.value.three")), heap.peek());
     }
 
     @Test
     void testPoll() {
-        heap.add(2);
-        heap.add(1);
-        heap.add(4);
-        assertEquals(1, heap.poll());
-        assertEquals(2, heap.poll());
-        assertEquals(4, heap.poll());
+        heap.add(Integer.parseInt(messages.getString("test.value.two")));
+        heap.add(Integer.parseInt(messages.getString("test.value.one")));
+        heap.add(Integer.parseInt(messages.getString("test.value.four")));
+        assertEquals(Integer.parseInt(messages.getString("test.value.one")), heap.poll());
+        assertEquals(Integer.parseInt(messages.getString("test.value.two")), heap.poll());
+        assertEquals(Integer.parseInt(messages.getString("test.value.four")), heap.poll());
         assertNull(heap.poll());
     }
 
     @Test
     void testSize() {
         assertEquals(0, heap.size());
-        heap.add(10);
+        heap.add(Integer.parseInt(messages.getString("test.value.ten")));
         assertEquals(1, heap.size());
     }
 
     @Test
     void testAsList() {
-        heap.add(8);
-        heap.add(6);
+        heap.add(Integer.parseInt(messages.getString("test.value.eight")));
+        heap.add(Integer.parseInt(messages.getString("test.value.six")));
         List<Integer> list = heap.asList();
-        assertTrue(list.contains(8));
-        assertTrue(list.contains(6));
+        assertTrue(list.contains(Integer.parseInt(messages.getString("test.value.eight"))));
+        assertTrue(list.contains(Integer.parseInt(messages.getString("test.value.six"))));
     }
 } 

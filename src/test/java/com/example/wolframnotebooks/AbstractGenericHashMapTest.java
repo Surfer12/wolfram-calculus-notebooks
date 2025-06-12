@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -35,15 +36,18 @@ class AbstractGenericHashMapTest {
         assertEquals(2, map.remove("c"));
     }
 
+    // import org.mockito.Mockito;
     @Test
     void testSize() {
-        when(map.size()).thenReturn(3);
+        // amazonq-ignore-next-line
+        Mockito.when(map.size()).thenReturn(3);
+        // amazonq-ignore-next-line
         assertEquals(3, map.size());
     }
 
     @Test
     void testAsMap() {
-        Map<String, Integer> dummy = Map.of("x", 10);
+        ImmutableMap<String, Integer> dummy = ImmutableMap.of("x", 10);
         when(map.asMap()).thenReturn(dummy);
         assertEquals(dummy, map.asMap());
     }

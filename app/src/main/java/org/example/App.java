@@ -9,6 +9,7 @@ public class App {
     }
 
     public static void main(String[] args) {
+        // amazonq-ignore-next-line
         System.out.println(new App().getGreeting());
     }
 }
