@@ -1,0 +1,12 @@
+[project]
+authors = ["Ryan Oates <ryanoatsie@outlook.com>"]
+channels = ["https://conda.modular.com/max-nightly", "https://conda.modular.com/max", "https://repo.prefix.dev/modular-community", "conda-forge"]
+name = "wolfram_proj"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+maven = ">=3.9.10,<4"
+max = ">=25.4.0.dev2025061205,<26"
