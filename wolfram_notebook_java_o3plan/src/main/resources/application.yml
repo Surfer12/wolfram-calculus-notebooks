@@ -1,5 +1,30 @@
 server:
   port: 8080
+  # HTTPS Configuration (uncomment for production)
+  # ssl:
+  #   enabled: true
+  #   key-store: classpath:keystore.p12
+  #   key-store-password: changeit
+  #   key-store-type: PKCS12
+  #   key-alias: wolfram-notebook
+  #   protocol: TLS
+  #   enabled-protocols: TLSv1.2,TLSv1.3
+  
+  # Security settings
+  servlet:
+    session:
+      cookie:
+        secure: true
+        http-only: true
+        same-site: strict
+  
+  # Connection settings
+  tomcat:
+    connection-timeout: 20000
+    max-connections: 8192
+    threads:
+      max: 200
+      min-spare: 10
 
 spring:
   application:
@@ -12,13 +37,47 @@ spring:
   flyway:
     locations: classpath:db/migration
     baseline-on-migrate: true
+  
+  # Security settings
+  security:
+    require-ssl: false  # Set to true in production with SSL profile
+
+# Management endpoints security
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
 
 logging:
   level:
     com.example.notebook: INFO
     com.wolfram.jlink: WARN
+    org.springframework.security: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: logs/app.log
+
+---
+# SSL Profile for production
+spring:
+  config:
+    activate:
+      on-profile: ssl
+  security:
+    require-ssl: true
+
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    # Configure these for your certificates
+    # key-store: classpath:keystore.p12
+    # key-store-password: ${SSL_KEYSTORE_PASSWORD:changeit}
+    # key-store-type: PKCS12
+    # key-alias: wolfram-notebook

@@ -38,15 +38,10 @@ public class WolframKernel implements AutoCloseable {
             throw new IllegalStateException("Kernel has been closed");
         }
         
-        try {
-            logger.debug("Evaluating: {}", input);
-            String result = link.evaluateToOutputForm(input, 0);
-            logger.debug("Result: {}", result);
-            return result;
-        } catch (MathLinkException e) {
-            logger.error("Evaluation failed for input: {}", input, e);
-            throw e;
-        }
+        logger.debug("Evaluating: {}", input);
+        String result = link.evaluateToOutputForm(input, 0);
+        logger.debug("Result: {}", result);
+        return result;
     }
 
     /**
@@ -57,19 +52,22 @@ public class WolframKernel implements AutoCloseable {
             throw new IllegalStateException("Kernel has been closed");
         }
         
-        try {
-            return link.evaluateToInputForm(input, 0);
-        } catch (MathLinkException e) {
-            logger.error("InputForm evaluation failed for input: {}", input, e);
-            throw e;
-        }
+        return link.evaluateToInputForm(input, 0);
     }
 
     /**
      * Check if the kernel is ready for evaluation.
      */
     public boolean isReady() {
-        return !closed && link != null && link.ready();
+        if (closed || link == null) {
+            return false;
+        }
+        try {
+            return link.ready();
+        } catch (MathLinkException e) {
+            logger.warn("Error checking kernel readiness", e);
+            return false;
+        }
     }
 
     @Override

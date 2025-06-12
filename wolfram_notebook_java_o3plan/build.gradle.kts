@@ -7,8 +7,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_24
-    targetCompatibility = JavaVersion.VERSION_24
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories { 
@@ -22,7 +22,8 @@ dependencies {
     // -- Spring Boot Web Layer --
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     // -- Persistence --
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")        // SQLite for development
@@ -50,5 +51,5 @@ tasks.test {
 // Flyway configuration
 flyway {
     url = "jdbc:sqlite:./notebook.db"
-    locations = arrayOf("classpath:db/migration")
+    locations = arrayOf("filesystem:src/main/resources/db/migration")
 }

@@ -19,7 +19,6 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // Allow CORS for development
 public class NotebookController {
     private static final Logger logger = LoggerFactory.getLogger(NotebookController.class);
     
