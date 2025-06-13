@@ -14,24 +14,12 @@ import org.springframework.security.web.header.writers.XXssProtectionHeaderWrite
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfigHTTP {
 
-    /**
-     * Configures the security filter chain for the application.
-     * This bean defines how Spring Security processes HTTP requests.
-     *
-     * @param http HttpSecurity object used to configure web-based security
-     * @return SecurityFilterChain with configured security settings
-     * @throws Exception if configuration fails
-     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // Disable CSRF (Cross-Site Request Forgery) protection
-            // CSRF is disabled here because this is a REST API that uses
-            // stateless authentication. CSRF protection is mainly needed for
-            // applications with session-based authentication and HTML forms.
-            // If you add web forms or session-based auth, re-enable CSRF.
+            // Disable CSRF for API endpoints (enable if you add web forms)
             .csrf(csrf -> csrf.disable())
             // Configure authorization
             .authorizeHttpRequests(authz ->
