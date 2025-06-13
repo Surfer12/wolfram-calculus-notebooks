@@ -71,3 +71,5 @@ public class SecurityFilterChainHttpsConfig {
             );
 
         return http.build();
+    }
+}
