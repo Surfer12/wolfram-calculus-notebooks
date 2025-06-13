@@ -70,11 +70,8 @@ public class SecurityConfig {
                     // X-Content-Type-Options - Prevent MIME sniffing
                     .contentTypeOptions(Customizer.withDefaults())
                     // Referrer Policy - Control referrer information
-                    .referrerPolicy(
-                        ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
-                    )
-                    // X-XSS-Protection - Enable XSS filtering
-                    .addHeaderWriter(new XXssProtectionHeaderWriter())
+                    .referrerPolicy(referrerPolicy -> referrerPolicy
+                        .policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
                     // Permissions Policy - Control browser features
                     .addHeaderWriter((request, response) -> {
                         response.setHeader(

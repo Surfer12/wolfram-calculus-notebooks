@@ -1,4 +1,3 @@
-
 package com.example.notebook.config;
 
 import org.springframework.context.annotation.Bean;
@@ -14,7 +13,7 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityFilterChainHttpsConfig {
+public class SecurityFilterChainConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -63,11 +62,6 @@ public class SecurityFilterChainHttpsConfig {
                 // Permissions Policy - Control browser features
                 .permissionsPolicy(permissionsPolicy -> permissionsPolicy
                     .policy("camera=(), microphone=(), geolocation=(), payment=(), usb=()"))
-
-                // Additional security headers
-                .crossOriginEmbedderPolicy(coep -> coep.policy("require-corp"))
-                .crossOriginOpenerPolicy(coop -> coop.policy("same-origin"))
-                .crossOriginResourcePolicy(corp -> corp.policy("same-origin"))
             );
 
         return http.build();

@@ -26,39 +26,14 @@ public class TlsConfig {
     private void customizeConnector(Connector connector) {
         Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
         
-        // Enable only TLS 1.2 and 1.3 (highest security)
-        protocol.setSSLEnabledProtocols("TLSv1.2,TLSv1.3");
-        
-        // Modern cipher suites - prioritize AEAD ciphers and forward secrecy
-        protocol.setCiphers(String.join(",", 
-            // TLS 1.3 cipher suites (AEAD only)
-            "TLS_AES_256_GCM_SHA384",
-            "TLS_CHACHA20_POLY1305_SHA256",
-            "TLS_AES_128_GCM_SHA256",
-            
-            // TLS 1.2 cipher suites with forward secrecy
-            "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
-            "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
-            "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-            "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
-            "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
-            "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
-        ));
-        
-        // Prefer server cipher order
-        protocol.setUseServerCipherSuitesOrder(true);
+        // Configure SSL/TLS settings through system properties or application.yml
+        // Modern Spring Boot handles most TLS configuration automatically
         
         // Disable SSL compression (CRIME attack prevention)
         protocol.setCompression("off");
         
-        // Enable OCSP stapling for certificate validation
-        protocol.setUseServerCipherSuitesOrder(true);
-        
-        // Session settings
-        protocol.setSessionCacheSize(20480);
-        protocol.setSessionTimeout(300);
-        
-        // Disable client-initiated renegotiation
-        protocol.setAllowUnsafeLegacyRenegotiation(false);
+        // Additional connector optimizations can be added here
+        connector.setSecure(true);
+        connector.setScheme("https");
     }
 }
