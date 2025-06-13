@@ -63,9 +63,6 @@ public class SecurityFilterChainHttpsConfig {
                 // Permissions Policy - Control browser features
                 .permissionsPolicy(permissionsPolicy -> permissionsPolicy
                     .policy("camera=(), microphone=(), geolocation=(), payment=(), usb=()"))
-
-                // Additional security headers - using custom header writers
-                .and()
             );
 
         return http.build();
